@@ -1,0 +1,58 @@
+// All Tasks Page - Editorial Noir List Styles
+
+:host {
+  display: contents;
+}
+
+// Task row entrance stagger
+@for $i from 1 through 50 {
+  :host ::ng-deep .task-row:nth-child(#{$i}) {
+    animation-delay: #{$i * 40}ms;
+  }
+}
+
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.task-row {
+  animation: row-in 0.4s ease both;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    transform: translateX(4px);
+  }
+}
+
+// Priority badge glow accents
+.priority-badge {
+  &--urgent {
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+  }
+  &--high {
+    box-shadow: 0 0 8px rgba(79, 70, 229, 0.3);
+  }
+  &--medium {
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+  }
+  &--low {
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
+  }
+}
+
+// Empty state illustration
+.empty-state {
+  animation: empty-float 4s ease-in-out infinite;
+}
+
+@keyframes empty-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}

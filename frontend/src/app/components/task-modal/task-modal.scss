@@ -1,0 +1,73 @@
+// Task Modal - Editorial Noir Aesthetic
+
+:host {
+  display: contents;
+}
+
+// Overlay entry animation
+.modal-overlay {
+  animation: overlay-in 0.3s ease forwards;
+}
+
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+// Modal panel slide-up
+form.animate-fade-in {
+  animation: modal-slide-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modal-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Rich text editor toolbar
+.editor-toolbar {
+  button {
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Date input - Noir override
+input[type="date"] {
+  color-scheme: dark;
+
+  &::-webkit-calendar-picker-indicator {
+    filter: opacity(0.2) invert(1);
+    cursor: pointer;
+
+    &:hover {
+      filter: opacity(0.6) invert(1);
+    }
+  }
+}
+
+// Select fields - clean arrow override
+select {
+  option {
+    background-color: var(--b1, #0b1326);
+    color: var(--bc);
+  }
+}
+
+// Image preview hover reveal
+.vision-preview {
+  &:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}

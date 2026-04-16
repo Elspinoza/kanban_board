@@ -1,0 +1,97 @@
+<div class="flex min-h-screen bg-base-100 font-body text-base-content">
+  
+  <!-- SideNavBar: Hiérarchie Tonale Indigo -->
+  <aside class="flex flex-col fixed left-0 top-0 h-screen w-64 bg-base-200 z-50 overflow-y-auto scrollbar-hide border-none">
+    <div class="p-8">
+      <div class="flex items-center gap-4 mb-12">
+        <div class="w-12 h-12 btn-signature rounded-md flex items-center justify-center">
+          <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">architecture</span>
+        </div>
+        <div>
+          <h1 class="text-xl font-black tracking-tighter text-base-content font-headline leading-none">Kanban Flow</h1>
+          <p class="text-[9px] font-black opacity-30 uppercase tracking-[0.3em] mt-1.5">Architect Edition</p>
+        </div>
+      </div>
+
+      <nav class="space-y-4">
+        <a routerLink="/dashboard/stats" routerLinkActive="text-primary font-black" class="flex items-center gap-4 px-2 py-1 text-base-content/40 hover:text-primary transition-all duration-300 group">
+          <span class="material-symbols-outlined group-hover:scale-110 transition-transform">dashboard</span>
+          <span class="text-sm font-bold tracking-tight">Vue d'Ensemble</span>
+        </a>
+        
+        <a routerLink="/dashboard/board" routerLinkActive="text-primary font-black" [routerLinkActiveOptions]="{exact: true}" class="flex items-center gap-4 px-2 py-1 text-base-content/40 hover:text-primary transition-all duration-300 group">
+          <span class="material-symbols-outlined group-hover:scale-110 transition-transform">view_kanban</span>
+          <span class="text-sm font-bold tracking-tight">Tableau Kanban</span>
+        </a>
+
+        <a routerLink="/dashboard/all-tasks" routerLinkActive="text-primary font-black" class="flex items-center gap-4 px-2 py-1 text-base-content/40 hover:text-primary transition-all duration-300 group">
+          <span class="material-symbols-outlined group-hover:scale-110 transition-transform">task_alt</span>
+          <span class="text-sm font-bold tracking-tight">Liste des Tâches</span>
+        </a>
+
+        <a routerLink="/dashboard/team" routerLinkActive="text-primary font-black" class="flex items-center gap-4 px-2 py-1 text-base-content/40 hover:text-primary transition-all duration-200 group">
+          <span class="material-symbols-outlined group-hover:scale-110 transition-transform">group</span>
+          <span class="text-sm font-bold tracking-tight">Collaborateurs</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="mt-auto p-8 space-y-6">
+      <button (click)="toggleTheme()" class="w-full flex items-center justify-between px-4 py-3 bg-base-300/50 rounded-md text-[10px] font-black uppercase tracking-widest shadow-sm hover:translate-x-1 transition-all">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-sm">{{ currentTheme === 'winter' ? 'light_mode' : 'dark_mode' }}</span>
+            <span>Mode {{ currentTheme === 'winter' ? 'Clair' : 'Sombre' }}</span>
+        </div>
+        <span class="material-symbols-outlined text-xs opacity-20">sync</span>
+      </button>
+
+      <button (click)="showNewTaskModal = true" class="w-full py-4 px-4 btn-signature rounded-md font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3 active:scale-95 transition-all outline-none border-none">
+        <span class="material-symbols-outlined text-sm">add</span>
+        <span>Nouvelle Unité</span>
+      </button>
+
+      <div class="bg-base-300 rounded-md p-4 group cursor-pointer transition-all hover:bg-base-300/80" (click)="logout()">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 rounded-md bg-primary-container text-on-primary flex items-center justify-center font-black shadow-sm group-hover:scale-110 transition-transform">
+            {{ user?.email?.charAt(0) | uppercase }}
+          </div>
+          <div class="overflow-hidden flex-1">
+            <p class="text-[10px] font-black truncate text-base-content uppercase tracking-tighter">{{ user?.email }}</p>
+            <p class="text-[9px] text-base-content/30 truncate font-black uppercase tracking-widest">{{ user?.role }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Canvas -->
+  <main class="ml-64 flex-1 min-h-screen flex flex-col bg-base-100">
+    <!-- Topbar: Immersive Glass -->
+    <header class="w-full h-20 sticky top-0 z-40 glass-panel flex justify-between items-center px-12 border-none">
+      <div class="flex items-center gap-4 flex-1">
+        <div class="relative w-[400px] group">
+          <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-base-content/20 text-lg group-focus-within:text-primary transition-colors">search</span>
+          <input class="w-full pl-12 pr-4 py-3 bg-base-200 border-none rounded-md text-xs font-bold focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-base-content/10 text-base-content" placeholder="Rechercher dans l'infrastructure..." type="text"/>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-8">
+        <div class="flex items-center gap-4">
+            <button class="p-2 text-base-content/20 hover:text-primary transition-all relative group">
+                <span class="material-symbols-outlined">notifications</span>
+                <span class="absolute top-2 right-2 w-1.5 h-1.5 bg-success rounded-full shadow-sm"></span>
+            </button>
+        </div>
+        <div class="h-10 w-px bg-base-content/5"></div>
+        <button class="text-primary px-6 py-2 rounded-md text-[10px] font-black uppercase tracking-widest hover:bg-primary/5 transition-all">Synchronisation</button>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <div class="p-12 flex-1 overflow-y-auto scrollbar-hide">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <app-task-modal *ngIf="showNewTaskModal" (close)="showNewTaskModal = false" (taskCreated)="onTaskCreated()"></app-task-modal>
+</div>

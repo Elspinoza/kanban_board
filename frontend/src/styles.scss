@@ -1,0 +1,114 @@
+@use './styles/tokens' as *;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body { 
+    height: 100%; 
+    margin: 0; 
+    scroll-behavior: smooth; 
+    @apply antialiased;
+  }
+  
+  body { 
+    font-family: $font-body;
+    @apply transition-colors duration-500 overflow-x-hidden;
+    background-color: var(--noir-surface);
+  }
+  
+  /* Type Strategy Layering - The Editorial Voice */
+  h1, h2, h3, h4, .font-headline { 
+    font-family: $font-headline;
+    @apply tracking-tighter transition-all duration-500;
+  }
+
+  /* Font Switching for Dark Mode: Epilogue (The Voice) */
+  [data-theme="dracula"] h1, 
+  [data-theme="dracula"] h2, 
+  [data-theme="dracula"] h3, 
+  [data-theme="dracula"] h4, 
+  [data-theme="dracula"] .font-headline { 
+    font-family: $font-voice !important;
+    letter-spacing: -0.04em;
+  }
+
+  /* Eliminating default borders as per "No-Line" Rule */
+  * {
+    border-color: transparent;
+  }
+}
+
+@layer components {
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+  }
+
+  /* Glassmorphism: The Signature Blur */
+  .glass-panel {
+    @apply backdrop-blur-[24px] border border-white/5;
+    background-color: color-mix(in srgb, var(--b1), transparent 40%);
+  }
+
+  /* Signal Glow Gradient (135deg) */
+  .btn-signature {
+    background: linear-gradient(135deg, #c3c0ff 0%, #4f46e5 100%);
+    @apply text-white shadow-noir hover:scale-[1.02] active:scale-95 transition-all duration-300;
+    &:hover {
+      box-shadow: 0 0 30px rgba(195, 192, 255, 0.3);
+    }
+  }
+
+  /* Signature Editorial Component: "The Feature Slate" */
+  .feature-slate {
+    @apply relative overflow-hidden bg-[#2d3449] p-12 rounded-lg;
+    box-shadow: var(--noir-shadow);
+    
+    &::before {
+      content: "";
+      @apply absolute left-0 top-0 bottom-0 w-1 bg-[#4edea3];
+    }
+    
+    &::after {
+      content: "";
+      @apply absolute inset-0 pointer-events-none opacity-10 mix-blend-soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+  }
+
+  /* Elevation: Noir Shadow */
+  .shadow-noir {
+    box-shadow: var(--noir-shadow);
+  }
+
+  /* Animation: Editorial Fade In */
+  .animate-fade-in {
+    animation: noir-fade-in 0.8s var(--noir-transition) forwards;
+  }
+}
+
+/* Custom scrollbar - Atmospheric and subtle */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--bc), transparent 90%);
+  @apply rounded-full transition-colors;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in srgb, var(--bc), transparent 80%);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

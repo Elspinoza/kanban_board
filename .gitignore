@@ -1,0 +1,33 @@
+# Root .gitignore for Fullstack Project
+
+# Compiled output
+/backend/target/
+/frontend/dist/
+/frontend/.angular/
+
+# Dependency directories
+/backend/node_modules/
+/frontend/node_modules/
+/node_modules/
+
+# IDE files
+.idea/
+.vsc/
+.vscode/
+*.swp
+*.swo
+*.DS_Store
+
+# Logs
+*.log
+/backend/logs/
+
+# Optional: Ignore large files or specific assets
+stitch_design_pages_web.zip
+
+# Locally built docker images (not really files but if they exist)
+docker-compose.override.yml
+
+# Environment sensitive files
+.env
+.env.local

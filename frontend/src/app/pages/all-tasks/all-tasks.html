@@ -1,0 +1,63 @@
+<div class="animate-fade-in space-y-10">
+  <div class="flex justify-between items-end">
+    <div>
+      <h2 class="text-3xl font-black font-headline tracking-tight text-on-surface">Toutes les Tâches</h2>
+      <p class="text-on-surface-variant text-sm mt-1 font-medium opacity-70">Vue d'ensemble granulaire de tous les tickets du projet.</p>
+    </div>
+    <div class="flex gap-4">
+        <div class="relative group">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline/40 text-sm group-focus-within:text-primary transition-colors">filter_alt</span>
+            <input type="text" placeholder="Filtrer la liste..." class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-xl text-xs font-bold focus:ring-2 focus:ring-primary/20 transition-all">
+        </div>
+    </div>
+  </div>
+
+  <div class="bg-surface-container-low/30 border border-outline-variant/10 rounded-[2.5rem] overflow-hidden shadow-sm">
+    <table class="table w-full border-separate border-spacing-0">
+      <thead class="bg-surface-container-high/50">
+        <tr>
+          <th class="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant text-left border-b border-outline-variant/10">Titre</th>
+          <th class="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant text-left border-b border-outline-variant/10">Statut</th>
+          <th class="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant text-left border-b border-outline-variant/10">Priorité</th>
+          <th class="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant text-left border-b border-outline-variant/10">Assigné</th>
+          <th class="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant text-left border-b border-outline-variant/10">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="isLoading" class="animate-pulse">
+            <td colspan="5" class="py-20 text-center text-on-surface-variant font-bold">Chargement des données...</td>
+        </tr>
+        <tr *ngIf="!isLoading && tasks.length === 0">
+            <td colspan="5" class="py-20 text-center text-on-surface-variant font-bold opacity-40">Aucune tâche trouvée.</td>
+        </tr>
+        <tr *ngFor="let task of tasks" class="group hover:bg-surface-container transition-colors">
+          <td class="px-8 py-6 border-b border-outline-variant/5">
+            <span class="font-bold text-sm text-on-surface group-hover:text-primary transition-colors">{{ task.title }}</span>
+          </td>
+          <td class="px-8 py-6 border-b border-outline-variant/5">
+            <span class="badge badge-sm font-black text-[9px] uppercase tracking-widest bg-surface-container-high border-none">{{ task.status }}</span>
+          </td>
+          <td class="px-8 py-6 border-b border-outline-variant/5">
+            <span class="px-3 py-1 rounded-md text-[9px] font-bold uppercase tracking-widest" [ngClass]="getPriorityClass(task.priority)">
+              {{ task.priority }}
+            </span>
+          </td>
+          <td class="px-8 py-6 border-b border-outline-variant/5">
+            <div class="flex items-center gap-3" *ngIf="task.assignee">
+                <div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center font-bold text-[10px] text-on-surface">
+                    {{ task.assignee.email.charAt(0) | uppercase}}
+                </div>
+                <span class="text-xs font-bold text-on-surface-variant opacity-70">{{ task.assignee.email }}</span>
+            </div>
+            <span *ngIf="!task.assignee" class="text-xs font-bold text-outline/30 italic">Non assigné</span>
+          </td>
+          <td class="px-8 py-6 border-b border-outline-variant/5">
+            <button class="w-10 h-10 rounded-xl hover:bg-surface-container-high text-on-surface-variant transition-all hover:text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined">edit_note</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
