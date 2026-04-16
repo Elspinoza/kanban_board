@@ -39,7 +39,7 @@ services:
     name: kanban-frontend
     runtime: static
     autoDeployTrigger: checksPass
-    buildCommand: cd frontend && npm install && npm run build
+    buildCommand: cd frontend && npm install && npx ng build --configuration production
     staticPublishPath: frontend/dist/frontend/browser
     routes:
       - type: rewrite
