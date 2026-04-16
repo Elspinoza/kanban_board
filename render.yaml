@@ -6,6 +6,7 @@ services:
     rootDir: backend
     plan: free
     region: frankfurt
+    autoDeployTrigger: checksPass
     healthCheckPath: /api/auth/login
     envVars:
       - key: DB_HOST
@@ -37,6 +38,7 @@ services:
   - type: web
     name: kanban-frontend
     runtime: static
+    autoDeployTrigger: checksPass
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/dist/frontend/browser
     routes:
