@@ -8,10 +8,14 @@ services:
     region: frankfurt
     healthCheckPath: /api/auth/login
     envVars:
-      - key: SPRING_DATASOURCE_URL
+      - key: DB_HOST
         fromDatabase:
           name: kanban-db
-          property: connectionString
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: kanban-db
+          property: port
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: kanban-db
@@ -20,6 +24,10 @@ services:
         fromDatabase:
           name: kanban-db
           property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: kanban-db
+          property: database
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
         value: update
       - key: JWT_SECRET_KEY
