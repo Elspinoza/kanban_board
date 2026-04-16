@@ -1,8 +1,11 @@
+server:
+  port: ${PORT:8080}
+
 spring:
   application:
     name: task-manager
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:kanban_db}}
+    url: ${JDBC_DATABASE_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:kanban_db}}
     username: ${SPRING_DATASOURCE_USERNAME:kanban_user}
     password: ${SPRING_DATASOURCE_PASSWORD:kanban_password}
     driver-class-name: org.postgresql.Driver
