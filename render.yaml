@@ -7,7 +7,7 @@ services:
     plan: free
     region: frankfurt
     autoDeployTrigger: checksPass
-    healthCheckPath: /api/auth/login
+    healthCheckPath: /api/health
     envVars:
       - key: DB_HOST
         fromDatabase:
