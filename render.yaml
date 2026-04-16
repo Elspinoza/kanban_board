@@ -31,7 +31,7 @@ services:
     env: static
     rootDir: frontend
     buildCommand: npm install && npm run build
-    staticPublishDir: dist/frontend/browser
+    publishDir: dist/frontend/browser
     routes:
       - type: rewrite
         source: /*
