@@ -1,0 +1,43 @@
+services:
+  # 1. Backend Service (Spring Boot)
+  - type: web
+    name: kanban-backend
+    env: docker
+    rootDir: backend
+    plan: free
+    region: frankfurt
+    healthCheckPath: /api/auth/login # Chemin public pour vérifier la santé du service
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: kanban-db
+          property: internalUrl
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: kanban-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: kanban-db
+          property: password
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: JWT_SECRET_KEY
+        generateValue: true
+
+  # 2. Frontend Service (Angular)
+  - type: web
+    name: kanban-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishDir: dist/frontend/browser
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html # Indispensable pour le routage Angular (SPA)
+
+databases:
+  - name: kanban-db
+    plan: free
+    region: frankfurt
